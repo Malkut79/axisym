@@ -21,10 +21,9 @@ domain = create_rectangle(
     cell_type=CellType.quadrilateral,
 )
 
-dim = domain.topology.dim
 
 degree = 2
-shape = (dim,)  #
+shape = (2,) 
 V = fem.functionspace(domain, ("P", degree, shape))
 
 u_sol = fem.Function(V, name="Displacement")
@@ -41,7 +40,12 @@ x = SpatialCoordinate(domain)
 def epsilon(v):
     e = sym(grad(v))
     e_theta = v[1] / x[1]
-    return as_vector([e[1, 1], e[0, 0], e_theta, e[0, 1]])
+
+
+    return as_vector([e[1, 1],  # e_r
+                      e[0, 0],  # e_z
+                      e_theta,  # e_theta
+                      e[0, 1]]) # gamma_rz
 
 
 def sigma(v):
@@ -66,6 +70,7 @@ L = inner(f, v) * dx
 
 def corner(x):
     return np.isclose(x[0], 0) & np.isclose(x[1], 0)
+
 corner_dofs = fem.locate_dofs_geometrical(V, corner)
 
 bcs = [
