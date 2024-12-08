@@ -9,5 +9,5 @@ docker build -t axisym .
 to run 
 
 ```
-docker run -v "${PWD}\shared:/shared" axisym
+docker run -v "${PWD}\src:/shared" axisym
 ```
