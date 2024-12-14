@@ -10,4 +10,4 @@ RUN echo '#!/bin/bash' > /run.sh && \
 # Set the entrypoint to allow passing file path
 ENTRYPOINT ["/run.sh"]
 # Default file if no argument is provided
-CMD ["/shared/input.txt"]
+# CMD "./shared/run.sh"

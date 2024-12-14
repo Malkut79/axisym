@@ -32,9 +32,6 @@ u_sol = fem.Function(V, name="Displacement")
 E = fem.Constant(domain, 210e3)
 nu = fem.Constant(domain, 0.3)
 
-lmbda = E * nu / (1 + nu) / (1 - 2 * nu)
-mu = E / 2 / (1 + nu)
-
 x = SpatialCoordinate(domain)
 
 def epsilon(v):
@@ -62,7 +59,7 @@ v = TestFunction(V)
 
 rho = 2e-3
 omega = 10
-f = as_vector([rho * omega**2 * x[1], 0])
+f = as_vector([0, rho * omega**2 * x[1]])
 
 dx = Measure("dx", domain=domain)
 a = inner(sigma(u), epsilon(v)) * dx
