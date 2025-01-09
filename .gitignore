@@ -1,3 +1,13 @@
 *.pvd
 *.pvtu
 *.vtu
+
+# jupyter notebook infos
+.ipynb_checkpoints
+.ipython
+.jupyter
+.local
+.config
+
+# cache
+.cache
