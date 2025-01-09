@@ -2,6 +2,11 @@ FROM dolfinx/dolfinx:v0.9.0
 
 WORKDIR /shared
 
+# Install python dependencies
+RUN apt-get update && apt-get upgrade -y
+RUN pip install --no-cache-dir matplotlib numpy pandas gmsh
+
+
 # Create a script to read the mounted file
 RUN echo '#!/bin/bash' > /run.sh && \
     echo 'python ./axisym.py' >> /run.sh && \
