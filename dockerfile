@@ -1,18 +1,22 @@
 FROM dolfinx/dolfinx:v0.9.0
 
-WORKDIR /shared
+COPY ./src/requirements.txt ./requirements.txt
 
 # Install python dependencies
 RUN apt-get update && apt-get upgrade -y
-RUN pip install --no-cache-dir matplotlib numpy pandas gmsh
+RUN pip install  -r requirements.txt
 
 
-# Create a script to read the mounted file
-RUN echo '#!/bin/bash' > /run.sh && \
-    echo 'python ./axisym.py' >> /run.sh && \
-    chmod +x /run.sh
+WORKDIR /shared
+
+COPY ./src/run.sh /run.sh
+RUN chmod +x /run.sh
+
+WORKDIR /code
+COPY ./app/ /code/app/
 
 # Set the entrypoint to allow passing file path
-ENTRYPOINT ["/run.sh"]
-# Default file if no argument is provided
-# CMD "./shared/run.sh"
+# ENTRYPOINT ["/run.sh"]
+
+
+CMD ["fastapi", "run", "app/main.py", "--port", "80"]
