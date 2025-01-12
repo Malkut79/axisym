@@ -7,10 +7,9 @@ RUN apt-get update && apt-get upgrade -y
 RUN pip install  -r requirements.txt
 
 
-WORKDIR /shared
-
-COPY ./src/run.sh /run.sh
-RUN chmod +x /run.sh
+# WORKDIR /shared
+# COPY ./src/run.sh /run.sh
+# RUN chmod +x /run.sh
 
 WORKDIR /code
 COPY ./app/ /code/app/
