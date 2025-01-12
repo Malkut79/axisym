@@ -79,7 +79,7 @@ def disc(thickness = 1, inner_radius=2, outer_radius=10):
     )
     problem.solve()
 
-    vtk = io.VTKFile(domain.comm, "linear_elasticity.pvd", "w")
+    vtk = io.VTKFile(domain.comm, "shared/linear_elasticity.pvd", "w")
     vtk.write_function(u_sol)
     vtk.close()
 
@@ -96,7 +96,7 @@ def disc(thickness = 1, inner_radius=2, outer_radius=10):
     s_dg.interpolate(s_expr)
 
                         
-    vtk = io.VTKFile(domain.comm, "linear_elasticity_s.pvd", "w")
+    vtk = io.VTKFile(domain.comm, "shared/linear_elasticity_s.pvd", "w")
     vtk.write_function(s_dg)
     vtk.close()
 
@@ -104,7 +104,7 @@ def disc(thickness = 1, inner_radius=2, outer_radius=10):
     s_expr = fem.Expression(as_tensor(epsilon(u_sol)), W.element.interpolation_points())
     s_dg.interpolate(s_expr)
 
-    vtk = io.VTKFile(domain.comm, "linear_elasticity_e.pvd", "w")
+    vtk = io.VTKFile(domain.comm, "shared/linear_elasticity_e.pvd", "w")
     vtk.write_function(s_dg)
     vtk.close()
 
